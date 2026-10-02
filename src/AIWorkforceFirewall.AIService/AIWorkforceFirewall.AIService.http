@@ -1,0 +1,6 @@
+@AIWorkforceFirewall.AIService_HostAddress = http://localhost:5166
+
+GET {{AIWorkforceFirewall.AIService_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
