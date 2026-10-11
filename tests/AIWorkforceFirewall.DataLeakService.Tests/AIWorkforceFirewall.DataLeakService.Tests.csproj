@@ -18,4 +18,8 @@
     <Using Include="Xunit" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\DataLeakService\AIWorkforceFirewall.DataLeakService.csproj" />
+  </ItemGroup>
+
 </Project>

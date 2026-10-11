@@ -1,1 +1,7 @@
-<Solution />
+<Solution>
+  <Project Path="src/AIWorkforceFirewall.AIService/AIWorkforceFirewall.AIService.csproj" />
+  <Project Path="src/AIWorkforceFirewall.AuditWorker/AIWorkforceFirewall.AuditWorker.csproj" />
+  <Project Path="src/AIWorkforceFirewall.Web/AIWorkforceFirewall.Web.csproj" />
+  <Project Path="src/DataLeakService/AIWorkforceFirewall.DataLeakService.csproj" />
+  <Project Path="tests/AIWorkforceFirewall.DataLeakService.Tests/AIWorkforceFirewall.DataLeakService.Tests.csproj" />
+</Solution>
