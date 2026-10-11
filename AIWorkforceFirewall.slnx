@@ -1,1 +1,3 @@
-<Solution />
+<Solution>
+  <Project Path="src/DataLeakService/AIWorkforceFirewall.DataLeakService.csproj" />
+</Solution>
