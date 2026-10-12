@@ -1,5 +1,5 @@
-﻿using AIWorkforceFirewall.DataLeakService.Models;
-using AIWorkforceFirewall.DataLeakService.Services;
+﻿using AIWorkforceFirewall.DataLeakService.IServices;
+using AIWorkforceFirewall.DataLeakService.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AIWorkforceFirewall.DataLeakService.Controllers;

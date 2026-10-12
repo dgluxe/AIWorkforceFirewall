@@ -1,8 +1,11 @@
 using AIWorkforceFirewall.DataLeakService.Services;
+using AIWorkforceFirewall.DataLeakService.Services.Detectors;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddScoped<ISensitiveDataDetector, CpfDetector>();
+builder.Services.AddScoped<ISensitiveDataDetector, CnpjDetector>();
 
 builder.Services.AddScoped<IDataLeakAnalyzer, DataLeakAnalyzer>();
 builder.Services.AddControllers();
