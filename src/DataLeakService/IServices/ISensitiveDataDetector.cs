@@ -1,4 +1,4 @@
-﻿namespace AIWorkforceFirewall.DataLeakService.Services.Detectors;
+﻿namespace AIWorkforceFirewall.DataLeakService.IServices;
 
 public interface ISensitiveDataDetector
 {

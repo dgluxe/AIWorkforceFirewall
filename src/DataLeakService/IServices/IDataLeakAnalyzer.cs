@@ -1,6 +1,6 @@
 ﻿using AIWorkforceFirewall.DataLeakService.Models;
 
-namespace AIWorkforceFirewall.DataLeakService.Services;
+namespace AIWorkforceFirewall.DataLeakService.IServices;
 
 public interface IDataLeakAnalyzer
 {

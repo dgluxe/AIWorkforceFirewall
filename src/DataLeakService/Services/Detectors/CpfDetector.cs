@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using AIWorkforceFirewall.DataLeakService.IServices;
+using System.Text.RegularExpressions;
 
 namespace AIWorkforceFirewall.DataLeakService.Services.Detectors;
 
