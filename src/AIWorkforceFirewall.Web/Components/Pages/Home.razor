@@ -1,7 +1,93 @@
-﻿@page "/"
+﻿@using AIWorkforceFirewall.Web.Models
+@page "/"
+@rendermode InteractiveServer
+@inject AIWorkforceFirewall.Web.Services.DataLeakApiClient ApiClient
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Analisar Texto IA</PageTitle>
+<p> Envie um texto para a IA</p>
 
-<h1>Hello, world!</h1>
+<label for="textToAnalyze">DataLeakService</label>
+<textarea id="textToAnalyze"
+          class="form-control"
+          rows="6"
+          @bind="textToAnalyze"></textarea>
 
-Welcome to your new app.
+<button class="btn btn-primary mt-3"
+         type="button"
+         @onclick="Analyze"
+         disabled = "@isAnalyzing">
+        @(isAnalyzing ? "Analisando..." : "Enviar")
+</button>
+
+@if (!string.IsNullOrWhiteSpace(statusMessage))
+{
+    <p role="status">@statusMessage</p>
+}
+
+@if (analyzeResponse is not null)
+{
+    <section class="mt-4" aria-live="polite">
+        <h2> Resultado</h2>
+
+        <p><strong>Ação:</strong> @analyzeResponse.Action</p>
+        <p><strong>Tipos detectados:</strong>
+            @string.Join(", ", analyzeResponse.DetectedTypes) </p>
+
+        @if (!string.IsNullOrWhiteSpace(analyzeResponse.Message))
+        {
+            <p><strong>Justificativa:</strong> @analyzeResponse.Message</p>
+        }
+    </section>
+}
+
+@code {
+    private DataLeakAnalyzeResponse? analyzeResponse;
+    private string textToAnalyze = string.Empty;
+    private string? statusMessage;
+    private bool isAnalyzing;
+
+    private async Task Analyze()
+    {
+        if (string.IsNullOrWhiteSpace(textToAnalyze))
+        {
+            statusMessage = "Digite algo antes de enviar.";
+            analyzeResponse = null;
+            return;
+        }
+        statusMessage = null;
+        analyzeResponse = null;
+
+        isAnalyzing = true;
+
+        try
+        {
+            var request = new DataLeakAnalyzeRequest
+                {
+                    Text = textToAnalyze
+                };
+
+            analyzeResponse = await ApiClient.AnalyzeAsync(request);
+        }
+        catch (HttpRequestException ex)
+        {
+            statusMessage = ex.StatusCode is null
+                            ? "Não foi possível conectar ao DataLeakService."
+                            : $"O DataLeakService respondeu com erro HTTP {(int)ex.StatusCode}.";
+        }
+        catch (System.Text.Json.JsonException)
+        {
+            statusMessage = "O Servidor retornou uma resposta que não pode ser lida.";
+        }
+        catch (InvalidOperationException)
+        {
+            statusMessage = "O servidor retornou uma resposta vazia.";
+        }
+
+        finally
+        {
+            isAnalyzing = false;
+        }
+    }
+
+
+}

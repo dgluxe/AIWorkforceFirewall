@@ -1,10 +1,24 @@
 using AIWorkforceFirewall.Web.Components;
+using AIWorkforceFirewall.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+var dataLeakServiceBaseUrl = builder.Configuration["DataLeakService:BaseUrl"];
+
+if (string.IsNullOrWhiteSpace(dataLeakServiceBaseUrl))
+{
+    throw new InvalidOperationException(
+        "A configuração DataLeakService:BaseUrl não foi definida.");
+}
+
+builder.Services.AddHttpClient<DataLeakApiClient>(client =>
+{
+    client.BaseAddress = new Uri(dataLeakServiceBaseUrl);
+});
 
 var app = builder.Build();
 
